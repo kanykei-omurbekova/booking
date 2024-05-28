@@ -1,3 +1,4 @@
+GIIIT
 NOTE: Read it completely!
 
   [.] By default email verification system is disabled, So you don't need to setup sendgrid account & API key.
