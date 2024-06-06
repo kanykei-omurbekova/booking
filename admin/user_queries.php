@@ -107,7 +107,7 @@
                       $date = date('d-m-Y',strtotime($row['datentime']));
                       $seen='';
                       if($row['seen']!=1){
-                        $seen = "<a href='?seen=$row[sr_no]' class='btn btn-sm rounded-pill btn-primary'>Отметить как прочитанное</a> <br>";
+                        $seen = "<a href='?seen=$row[sr_no]' class='btn btn-sm rounded-pill btn-primary'>Прочитано</a> <br>";
                       }
                       $seen.="<a href='?del=$row[sr_no]' class='btn btn-sm rounded-pill btn-danger mt-2'>Удалить</a>";
 
