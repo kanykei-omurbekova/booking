@@ -1,24 +1,23 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <?php require('inc/links.php'); ?>
-  <title><?php echo $settings_r['site_title'] ?> - ROOMS</title>
+  <title><?php echo $settings_r['site_title'] ?> - ЖИЛЬЕ</title>
 </head>
 <body class="bg-light">
 
   <?php 
     require('inc/header.php'); 
 
-    $checkin_default="";
-    $checkout_default="";
-    $adult_default="";
-    $children_default="";
+    $checkin_default = "";
+    $checkout_default = "";
+    $adult_default = "";
+    $children_default = "";
 
-    if(isset($_GET['check_availability']))
-    {
+    if (isset($_GET['check_availability'])) {
       $frm_data = filteration($_GET);
 
       $checkin_default = $frm_data['checkin'];
@@ -29,7 +28,7 @@
   ?>
 
   <div class="my-5 px-4">
-    <h2 class="fw-bold h-font text-center">OUR ROOMS</h2>
+    <h2 class="fw-bold h-font text-center">НАЙТИ ЖИЛЬЕ</h2>
     <div class="h-line bg-dark"></div>
   </div>
 
@@ -39,28 +38,28 @@
       <div class="col-lg-3 col-md-12 mb-lg-0 mb-4 ps-4">
         <nav class="navbar navbar-expand-lg navbar-light bg-white rounded shadow">
           <div class="container-fluid flex-lg-column align-items-stretch">
-            <h4 class="mt-2">FILTERS</h4>
+            <h4 class="mt-2">ФИЛЬТРЫ</h4>
             <button class="navbar-toggler shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#filterDropdown" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse flex-column align-items-stretch mt-2" id="filterDropdown">
-              <!-- Check availablity -->
+              <!-- Проверить доступность -->
               <div class="border bg-light p-3 rounded mb-3">
                 <h5 class="d-flex align-items-center justify-content-between mb-3" style="font-size: 18px;">
-                  <span>CHECK AVAILABILITY</span>
-                  <button id="chk_avail_btn" onclick="chk_avail_clear()" class="btn shadow-none btn-sm text-secondary d-none">Reset</button>
+                  <span>ПРОВЕРИТЬ ДОСТУПНОСТЬ</span>
+                  <button id="chk_avail_btn" onclick="chk_avail_clear()" class="btn shadow-none btn-sm text-secondary d-none">Сбросить</button>
                 </h5>
-                <label class="form-label">Check-in</label>
+                <label class="form-label">Дата заезда</label>
                 <input type="date" class="form-control shadow-none mb-3" value="<?php echo $checkin_default ?>" id="checkin" onchange="chk_avail_filter()">
-                <label class="form-label">Check-out</label>
+                <label class="form-label">Дата выезда</label>
                 <input type="date" class="form-control shadow-none" value="<?php echo $checkout_default ?>"  id="checkout" onchange="chk_avail_filter()">
               </div>
 
-              <!-- Facilities -->
+              <!-- Удобства -->
               <div class="border bg-light p-3 rounded mb-3">
                 <h5 class="d-flex align-items-center justify-content-between mb-3" style="font-size: 18px;">
-                  <span>FACILITIES</span>
-                  <button id="facilities_btn" onclick="facilities_clear()" class="btn shadow-none btn-sm text-secondary d-none">Reset</button>
+                  <span>УДОБСТВА</span>
+                  <button id="facilities_btn" onclick="facilities_clear()" class="btn shadow-none btn-sm text-secondary d-none">Сбросить</button>
                 </h5>
                 <?php 
                   $facilities_q = selectAll('facilities');
@@ -76,19 +75,19 @@
                 ?>
               </div>
 
-              <!-- Guests -->
+              <!-- Гости -->
               <div class="border bg-light p-3 rounded mb-3">
                 <h5 class="d-flex align-items-center justify-content-between mb-3" style="font-size: 18px;">
-                  <span>GUESTS</span>
-                  <button id="guests_btn" onclick="guests_clear()" class="btn shadow-none btn-sm text-secondary d-none">Reset</button>
+                  <span>ГОСТИ</span>
+                  <button id="guests_btn" onclick="guests_clear()" class="btn shadow-none btn-sm text-secondary d-none">Сбросить</button>
                 </h5>
                 <div class="d-flex">
                   <div class="me-3">
-                    <label class="form-label">Adults</label>
+                    <label class="form-label">Взрослые</label>
                     <input type="number" min="1" id="adults" value="<?php echo $adult_default ?>" oninput="guests_filter()" class="form-control shadow-none">                 
                   </div>
                   <div>
-                    <label class="form-label">Children</label>
+                    <label class="form-label">Дети</label>
                     <input type="number" min="1" id="children" value="<?php echo $children_default ?>" oninput="guests_filter()" class="form-control shadow-none">                 
                   </div>
                 </div>
@@ -134,25 +133,25 @@
       let facility_list = {"facilities":[]};
 
       let get_facilities = document.querySelectorAll('[name="facilities"]:checked');
-      if(get_facilities.length>0)
+      if(get_facilities.length > 0)
       {
-        get_facilities.forEach((facility)=>{
+        get_facilities.forEach((facility) => {
           facility_list.facilities.push(facility.value);
         });
         facilities_btn.classList.remove('d-none');
       }
-      else{
+      else {
         facilities_btn.classList.add('d-none');
       }
 
       facility_list = JSON.stringify(facility_list);
 
       let xhr = new XMLHttpRequest();
-      xhr.open("GET","ajax/rooms.php?fetch_rooms&chk_avail="+chk_avail+"&guests="+guests+"&facility_list="+facility_list,true);
+      xhr.open("GET","ajax/rooms.php?fetch_rooms&chk_avail=" + chk_avail + "&guests=" + guests + "&facility_list=" + facility_list, true);
 
       xhr.onprogress = function(){
         rooms_data.innerHTML = `<div class="spinner-border text-info mb-3 d-block mx-auto" id="loader" role="status">
-          <span class="visually-hidden">Loading...</span>
+          <span class="visually-hidden">Загрузка...</span>
         </div>`;
       }
 
@@ -164,42 +163,41 @@
     }
 
     function chk_avail_filter(){
-      if(checkin.value!='' && checkout.value !=''){
+      if (checkin.value != '' && checkout.value != '') {
         fetch_rooms();
-        chk_avail_btn.classList.remove('d-none');
+        chk_avail_btn.classList.remove('д-none');
       }
     }
 
     function chk_avail_clear(){
-      checkin.value='';
-      checkout.value='';
-      chk_avail_btn.classList.add('d-none');
+      checkin.value = '';
+      checkout.value = '';
+      chk_avail_btn.classList.add('д-none');
       fetch_rooms();
     }
 
     function guests_filter(){
-      if(adults.value>0 || children.value>0){
+      if (adults.value > 0 || children.value > 0) {
         fetch_rooms();
-        guests_btn.classList.remove('d-none');
+        guests_btn.classList.remove('д-none');
       }
     }
 
     function guests_clear(){
-      adults.value='';
-      children.value='';
-      guests_btn.classList.add('d-none');
+      adults.value = '';
+      children.value = '';
+      guests_btn.classList.add('д-none');
       fetch_rooms();
     }
 
     function facilities_clear(){
       let get_facilities = document.querySelectorAll('[name="facilities"]:checked');
-      get_facilities.forEach((facility)=>{
-        facility.checked=false;
+      get_facilities.forEach((facility) => {
+        facility.checked = false;
       });
-      facilities_btn.classList.add('d-none');
+      facilities_btn.classList.add('д-none');
       fetch_rooms();
     }
-
 
     window.onload = function(){
       fetch_rooms();

@@ -4,7 +4,7 @@
   require('../admin/inc/essentials.php');
   require("../inc/sendgrid/sendgrid-php.php");
 
-  date_default_timezone_set("Asia/Kolkata");
+  date_default_timezone_set("Asia/Bishkek");
 
 
   function send_mail($uemail,$token,$type)

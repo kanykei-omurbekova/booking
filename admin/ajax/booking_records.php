@@ -2,7 +2,7 @@
 
   require('../inc/db_config.php');
   require('../inc/essentials.php');
-  date_default_timezone_set("Asia/Kolkata");
+  date_default_timezone_set("Asia/Bishkek");
   adminLogin();
 
   if(isset($_POST['get_bookings']))
@@ -29,7 +29,7 @@
     $total_rows = mysqli_num_rows($res);
 
     if($total_rows==0){
-      $output = json_encode(["table_data"=>"<b>No Data Found!</b>", "pagination"=>'']);
+      $output = json_encode(["table_data"=>"<b>Данные не найдены!</b>", "pagination"=>'']);
       echo $output;
       exit;
     }
@@ -58,22 +58,22 @@
           <td>$i</td>
           <td>
             <span class='badge bg-primary'>
-              Order ID: $data[order_id]
+              ID заказа: $data[order_id]
             </span>
             <br>
-            <b>Name:</b> $data[user_name]
+            <b>Имя:</b> $data[user_name]
             <br>
-            <b>Phone No:</b> $data[phonenum]
+            <b>Телефон:</b> $data[phonenum]
           </td>
           <td>
-            <b>Room:</b> $data[room_name]
+            <b>Комната:</b> $data[room_name]
             <br>
-            <b>Price:</b> ₹$data[price]
+            <b>Цена:</b> сом $data[price]
           </td>
           <td>
-            <b>Amount:</b> ₹$data[trans_amt]
+            <b>Сумма:</b> сом $data[trans_amt]
             <br>
-            <b>Date:</b> $date
+            <b>Дата:</b> $date
           </td>
           <td>
             <span class='badge $status_bg'>$data[booking_status]</span>
@@ -97,26 +97,26 @@
 
       if($page!=1){
         $pagination .="<li class='page-item'>
-          <button onclick='change_page(1)' class='page-link shadow-none'>First</button>
+          <button onclick='change_page(1)' class='page-link shadow-none'>Первая</button>
         </li>";
       }
 
       $disabled = ($page==1) ? "disabled" : "";
       $prev= $page-1;
       $pagination .="<li class='page-item $disabled'>
-        <button onclick='change_page($prev)' class='page-link shadow-none'>Prev</button>
+        <button onclick='change_page($prev)' class='page-link shadow-none'>Пред</button>
       </li>";
 
 
       $disabled = ($page==$total_pages) ? "disabled" : "";
       $next = $page+1;
       $pagination .="<li class='page-item $disabled'>
-        <button onclick='change_page($next)' class='page-link shadow-none'>Next</button>
+        <button onclick='change_page($next)' class='page-link shadow-none'>След</button>
       </li>";
 
       if($page!=$total_pages){
         $pagination .="<li class='page-item'>
-          <button onclick='change_page($total_pages)' class='page-link shadow-none'>Last</button>
+          <button onclick='change_page($total_pages)' class='page-link shadow-none'>Послед</button>
         </li>";
       }
 

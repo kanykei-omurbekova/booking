@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <?php require('inc/links.php'); ?>
-  <title><?php echo $settings_r['site_title'] ?> - BOOKINGS</title>
+  <title><?php echo $settings_r['site_title'] ?> - БРОНИРОВАНИЯ</title>
 </head>
 <body class="bg-light">
 
@@ -22,17 +22,15 @@
     <div class="row">
 
       <div class="col-12 my-5 px-4">
-        <h2 class="fw-bold">BOOKINGS</h2>
+        <h2 class="fw-bold">БРОНИРОВАНИЯ</h2>
         <div style="font-size: 14px;">
-          <a href="index.php" class="text-secondary text-decoration-none">HOME</a>
+          <a href="index.php" class="text-secondary text-decoration-none">ГЛАВНАЯ</a>
           <span class="text-secondary"> > </span>
-          <a href="#" class="text-secondary text-decoration-none">BOOKINGS</a>
+          <a href="#" class="text-secondary text-decoration-none">БРОНИРОВАНИЯ</a>
         </div>
       </div>
 
       <?php 
-        
-        
         $query = "SELECT bo.*, bd.* FROM `booking_order` bo
           INNER JOIN `booking_details` bd ON bo.booking_id = bd.booking_id
           WHERE ((bo.booking_status='booked') 
@@ -57,14 +55,14 @@
             $status_bg = "bg-success";
             if($data['arrival']==1)
             {
-              $btn="<a href='generate_pdf.php?gen_pdf&id=$data[booking_id]' class='btn btn-dark btn-sm shadow-none'>Download PDF</a>";
+              $btn="<a href='generate_pdf.php?gen_pdf&id=$data[booking_id]' class='btn btn-dark btn-sm shadow-none'>Скачать PDF</a>";
  
               if($data['rate_review']==0){
-                $btn.="<button type='button' onclick='review_room($data[booking_id],$data[room_id])' data-bs-toggle='modal' data-bs-target='#reviewModal' class='btn btn-dark btn-sm shadow-none ms-2'>Rate & Review</button>";
+                $btn.="<button type='button' onclick='review_room($data[booking_id],$data[room_id])' data-bs-toggle='modal' data-bs-target='#reviewModal' class='btn btn-dark btn-sm shadow-none ms-2'>Оценить и оставить отзыв</button>";
               }
             }
             else{
-              $btn="<button onclick='cancel_booking($data[booking_id])' type='button' class='btn btn-danger btn-sm shadow-none'>Cancel</button>";
+              $btn="<button onclick='cancel_booking($data[booking_id])' type='button' class='btn btn-danger btn-sm shadow-none'>Отменить</button>";
             }
           }
           else if($data['booking_status']=='cancelled')
@@ -72,31 +70,31 @@
             $status_bg = "bg-danger";
 
             if($data['refund']==0){
-              $btn="<span class='badge bg-primary'>Refund in process!</span>";
+              $btn="<span class='badge bg-primary'>Возврат в процессе!</span>";
             }
             else{
-              $btn="<a href='generate_pdf.php?gen_pdf&id=$data[booking_id]' class='btn btn-dark btn-sm shadow-none'>Download PDF</a>";
+              $btn="<a href='generate_pdf.php?gen_pdf&id=$data[booking_id]' class='btn btn-dark btn-sm shadow-none'>Скачать PDF</a>";
             }
           }
           else
           {
             $status_bg = "bg-warning";
-            $btn="<a href='generate_pdf.php?gen_pdf&id=$data[booking_id]' class='btn btn-dark btn-sm shadow-none'>Download PDF</a>";
+            $btn="<a href='generate_pdf.php?gen_pdf&id=$data[booking_id]' class='btn btn-dark btn-sm shadow-none'>Скачать PDF</a>";
           }
 
           echo<<<bookings
             <div class='col-md-4 px-4 mb-4'>
               <div class='bg-white p-3 rounded shadow-sm'>
                 <h5 class='fw-bold'>$data[room_name]</h5>
-                <p>₹$data[price] per night</p>
+                <p>$data[price]c за ночь</p>
                 <p>
-                  <b>Check in: </b> $checkin <br>
-                  <b>Check out: </b> $checkout
+                  <b>Заезд: </b> $checkin <br>
+                  <b>Выезд: </b> $checkout
                 </p>
                 <p>
-                  <b>Amount: </b> ₹$data[price] <br>
-                  <b>Order ID: </b> $data[order_id] <br>
-                  <b>Date: </b> $date
+                  <b>Сумма: </b> $data[price]c <br>
+                  <b>Номер заказа: </b> $data[order_id] <br>
+                  <b>Дата: </b> $date
                 </p>
                 <p>
                   <span class='badge $status_bg'>$data[booking_status]</span>
@@ -121,31 +119,31 @@
         <form id="review-form">
           <div class="modal-header">
             <h5 class="modal-title d-flex align-items-center">
-              <i class="bi bi-chat-square-heart-fill fs-3 me-2"></i> Rate & Review
+              <i class="bi bi-chat-square-heart-fill fs-3 me-2"></i> Оценить и оставить отзыв
             </h5>
             <button type="reset" class="btn-close shadow-none" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
             <div class="mb-3">
-              <label class="form-label">Rating</label>
+              <label class="form-label">Оценка</label>
               <select class="form-select shadow-none" name="rating">
-                <option value="5">Excellent</option>
-                <option value="4">Good</option>
-                <option value="3">Ok</option>
-                <option value="2">Poor</option>
-                <option value="1">Bad</option>
+                <option value="5">Отлично</option>
+                <option value="4">Хорошо</option>
+                <option value="3">Нормально</option>
+                <option value="2">Плохо</option>
+                <option value="1">Очень плохо</option>
               </select>
             </div>
             <div class="mb-4">
-              <label class="form-label">Review</label>
-              <textarea type="password" name="review" rows="3" required class="form-control shadow-none"></textarea>
+              <label class="form-label">Отзыв</label>
+              <textarea name="review" rows="3" required class="form-control shadow-none"></textarea>
             </div>
             
             <input type="hidden" name="booking_id">
             <input type="hidden" name="room_id">
 
             <div class="text-end">
-              <button type="submit" class="btn custom-bg text-white shadow-none">SUBMIT</button>
+              <button type="submit" class="btn custom-bg text-white shadow-none">ОТПРАВИТЬ</button>
             </div>
           </div>
         </form>
@@ -157,10 +155,10 @@
 
   <?php 
     if(isset($_GET['cancel_status'])){
-      alert('success','Booking Cancelled!');
+      alert('success','Бронирование отменено!');
     }  
     else if(isset($_GET['review_status'])){
-      alert('success','Thank you for rating & review!');
+      alert('success','Спасибо за ваш отзыв!');
     }  
   ?>
 
@@ -169,7 +167,7 @@
   <script>
     function cancel_booking(id)
     {
-      if(confirm('Are you sure to cancel booking?'))
+      if(confirm('Вы уверены, что хотите отменить бронирование?'))
       {        
         let xhr = new XMLHttpRequest();
         xhr.open("POST","ajax/cancel_booking.php",true);
@@ -180,7 +178,7 @@
             window.location.href="bookings.php?cancel_status=true";
           }
           else{
-            alert('error','Cancellation Failed!');
+            alert('error','Отмена не удалась!');
           }
         }
 
@@ -221,7 +219,7 @@
           var modal = bootstrap.Modal.getInstance(myModal);
           modal.hide();
   
-          alert('error',"Rating & Review Failed!");
+          alert('error',"Отправка отзыва не удалась!");
         }
       }
 

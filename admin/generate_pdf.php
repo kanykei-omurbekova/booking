@@ -33,54 +33,54 @@
     $checkout = date("d-m-Y",strtotime($data['check_out']));
 
     $table_data = "
-    <h2>BOOKING RECIEPT</h2>
+    <h2>КВИТАНЦИЯ О БРОНИРОВАНИИ</h2>
     <table border='1'>
       <tr>
-        <td>Order ID: $data[order_id]</td>
-        <td>Booking Date: $date</td>
+        <td>Номер заказа: $data[order_id]</td>
+        <td>Дата бронирования: $date</td>
       </tr>
       <tr>
-        <td colspan='2'>Status: $data[booking_status]</td>
+        <td colspan='2'>Статус: $data[booking_status]</td>
       </tr>
       <tr>
-        <td>Name: $data[user_name]</td>
+        <td>Имя: $data[user_name]</td>
         <td>Email: $data[email]</td>
       </tr>
       <tr>
-        <td>Phone Number: $data[phonenum]</td>
-        <td>Address: $data[address]</td>
+        <td>Номер телефона: $data[phonenum]</td>
+        <td>Адрес: $data[address]</td>
       </tr>
       <tr>
-        <td>Room Name: $data[room_name]</td>
-        <td>Cost: ₹$data[price] per night</td>
+        <td>Название комнаты: $data[room_name]</td>
+        <td>Стоимость: $data[price] сом за ночь</td>
       </tr>
       <tr>
-        <td>Check-in: $checkin</td>
-        <td>Check-out: $checkout</td>
+        <td>Дата заезда: $checkin</td>
+        <td>Дата выезда: $checkout</td>
       </tr>
     ";
 
     if($data['booking_status']=='cancelled')
     {
-      $refund = ($data['refund']) ? "Amount Refunded" : "Not Yet Refunded";
+      $refund = ($data['refund']) ? "Сумма возвращена" : "Еще не возвращено";
 
       $table_data.="<tr>
-        <td>Amount Paid: ₹$data[trans_amt]</td>
-        <td>Refund: $refund</td>
+        <td>Сумма оплаты: $data[trans_amt] сом</td>
+        <td>Возврат: $refund</td>
       </tr>";
     }
     else if($data['booking_status']=='payment failed')
     {
       $table_data.="<tr>
-        <td>Transaction Amount: ₹$data[trans_amt]</td>
-        <td>Failure Response: $data[trans_resp_msg]</td>
+        <td>Сумма транзакции: $data[trans_amt] сом</td>
+        <td>Ответ на ошибку: $data[trans_resp_msg]</td>
       </tr>";
     }
     else
     {
       $table_data.="<tr>
-        <td>Room Number: $data[room_no]</td>
-        <td>Amount Paid: ₹$data[trans_amt]</td>
+        <td>Номер комнаты: $data[room_no]</td>
+        <td>Сумма оплаты: $data[trans_amt] сом</td>
       </tr>";
     }
 

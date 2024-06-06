@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <?php require('inc/links.php'); ?>
-  <title><?php echo $settings_r['site_title'] ?> - ROOM DETAILS</title>
+  <title><?php echo $settings_r['site_title'] ?> - ДЕТАЛИ НОМЕРА</title>
 </head>
 <body class="bg-light">
 
@@ -27,17 +27,15 @@
     $room_data = mysqli_fetch_assoc($room_res);
   ?>
 
-
-
   <div class="container">
     <div class="row">
 
       <div class="col-12 my-5 mb-4 px-4">
         <h2 class="fw-bold"><?php echo $room_data['name'] ?></h2>
         <div style="font-size: 14px;">
-          <a href="index.php" class="text-secondary text-decoration-none">HOME</a>
+          <a href="index.php" class="text-secondary text-decoration-none">ГЛАВНАЯ</a>
           <span class="text-secondary"> > </span>
-          <a href="rooms.php" class="text-secondary text-decoration-none">ROOMS</a>
+          <a href="rooms.php" class="text-secondary text-decoration-none">НОМЕРА</a>
         </div>
       </div>
 
@@ -75,11 +73,11 @@
           </div>
           <button class="carousel-control-prev" type="button" data-bs-target="#roomCarousel" data-bs-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
+            <span class="visually-hidden">Предыдущий</span>
           </button>
           <button class="carousel-control-next" type="button" data-bs-target="#roomCarousel" data-bs-slide="next">
             <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
+            <span class="visually-hidden">Следующий</span>
           </button>
         </div>
 
@@ -91,7 +89,7 @@
             <?php 
 
               echo<<<price
-                <h4>₹$room_data[price] per night</h4>
+                <h4>с $room_data[price] за ночь</h4>
               price;
 
               $rating_q = "SELECT AVG(rating) AS `avg_rating` FROM `rating_review`
@@ -128,7 +126,7 @@
 
               echo<<<features
                 <div class="mb-3">
-                  <h6 class="mb-1">Features</h6>
+                  <h6 class="mb-1">Особенности</h6>
                   $features_data
                 </div>
               features;
@@ -146,28 +144,28 @@
               
               echo<<<facilities
                 <div class="mb-3">
-                  <h6 class="mb-1">Facilities</h6>
+                  <h6 class="mb-1">Удобства</h6>
                   $facilities_data
                 </div>
               facilities;
 
               echo<<<guests
                 <div class="mb-3">
-                  <h6 class="mb-1">Guests</h6>
+                  <h6 class="mb-1">Гости</h6>
                   <span class="badge rounded-pill bg-light text-dark text-wrap">
-                    $room_data[adult] Adults
+                    $room_data[adult] Взрослые
                   </span>
                   <span class="badge rounded-pill bg-light text-dark text-wrap">
-                    $room_data[children] Children
+                    $room_data[children] Дети
                   </span>
                 </div>
               guests;
 
               echo<<<area
                 <div class="mb-3">
-                  <h6 class="mb-1">Area</h6>
+                  <h6 class="mb-1">Площадь</h6>
                   <span class='badge rounded-pill bg-light text-dark text-wrap me-1 mb-1'>
-                    $room_data[area] sq. ft.
+                    $room_data[area] кв. м
                   </span>
                 </div>
               area;
@@ -178,7 +176,7 @@
                   $login=1;
                 }
                 echo<<<book
-                  <button onclick='checkLoginToBook($login,$room_data[id])' class="btn w-100 text-white custom-bg shadow-none mb-1">Book Now</button>
+                  <button onclick='checkLoginToBook($login,$room_data[id])' class="btn w-100 text-white custom-bg shadow-none mb-1">Забронировать</button>
                 book;
               }
 
@@ -189,14 +187,14 @@
 
       <div class="col-12 mt-4 px-4">
         <div class="mb-5">
-          <h5>Description</h5>
+          <h5>Описание</h5>
           <p>
             <?php echo $room_data['description'] ?>
           </p>
         </div>
 
         <div>
-          <h5 class="mb-3">Reviews & Ratings</h5>
+          <h5 class="mb-3">Отзывы и Рейтинги</h5>
 
           <?php
             $review_q = "SELECT rr.*,uc.name AS uname, uc.profile, r.name AS rname FROM `rating_review` rr
@@ -209,7 +207,7 @@
             $img_path = USERS_IMG_PATH;
 
             if(mysqli_num_rows($review_res)==0){
-              echo 'No reviews yet!';
+              echo 'Отзывов пока нет!';
             }
             else
             {
@@ -237,14 +235,12 @@
               }
             }
           ?>
-
           
         </div>
       </div>
 
     </div>
   </div>
-
 
   <?php require('inc/footer.php'); ?>
 

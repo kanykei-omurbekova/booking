@@ -13,13 +13,13 @@
       WHERE (bo.order_id LIKE ? OR bd.phonenum LIKE ? OR bd.user_name LIKE ?) 
       AND (bo.booking_status=? AND bo.refund=?) ORDER BY bo.booking_id ASC";
 
-    $res = select($query,["%$frm_data[search]%","%$frm_data[search]%","%$frm_data[search]%","cancelled",0],'sssss');
+    $res = select($query,["%$frm_data[search]%","%$frm_data[search]%","%$frm_data[search]%","отменено",0],'sssss');
     
     $i=1;
     $table_data = "";
 
     if(mysqli_num_rows($res)==0){
-      echo"<b>No Data Found!</b>";
+      echo"<b>Данные не найдены!</b>";
       exit;
     }
 
@@ -34,28 +34,28 @@
           <td>$i</td>
           <td>
             <span class='badge bg-primary'>
-              Order ID: $data[order_id]
+              ID заказа: $data[order_id]
             </span>
             <br>
-            <b>Name:</b> $data[user_name]
+            <b>Имя:</b> $data[user_name]
             <br>
-            <b>Phone No:</b> $data[phonenum]
+            <b>Телефон:</b> $data[phonenum]
           </td>
           <td>
-            <b>Room:</b> $data[room_name]
+            <b>Комната:</b> $data[room_name]
             <br>
-            <b>Check-in:</b> $checkin
+            <b>Дата заселения:</b> $checkin
             <br>
-            <b>Check-out:</b> $checkout
+            <b>Дата выселения:</b> $checkout
             <br>
-            <b>Date:</b> $date
+            <b>Дата:</b> $date
           </td>
           <td>
-            <b>₹$data[trans_amt]</b> 
+            <b>$data[trans_amt] сом</b> 
           </td>
           <td>
             <button type='button' onclick='refund_booking($data[booking_id])' class='btn btn-success btn-sm fw-bold shadow-none'>
-              <i class='bi bi-cash-stack'></i> Refund
+              <i class='bi bi-cash-stack'></i> Возврат
             </button>
           </td>
         </tr>

@@ -34,34 +34,34 @@
           <td>$i</td>
           <td>
             <span class='badge bg-primary'>
-              Order ID: $data[order_id]
+              ID Заказа: $data[order_id]
             </span>
             <br>
-            <b>Name:</b> $data[user_name]
+            <b>Имя:</b> $data[user_name]
             <br>
-            <b>Phone No:</b> $data[phonenum]
+            <b>Телефон:</b> $data[phonenum]
           </td>
           <td>
-            <b>Room:</b> $data[room_name]
+            <b>Жилье:</b> $data[room_name]
             <br>
-            <b>Price:</b> ₹$data[price]
+            <b>Цена:</b> $data[price]c
           </td>
           <td>
-            <b>Check-in:</b> $checkin
+            <b>Заселение:</b> $checkin
             <br>
-            <b>Check-out:</b> $checkout
+            <b>Выселение:</b> $checkout
             <br>
-            <b>Paid:</b> ₹$data[trans_amt]
+            <b>Оплачено:</b> $data[trans_amt]c
             <br>
-            <b>Date:</b> $date
+            <b>Дата:</b> $date
           </td>
           <td>
             <button type='button' onclick='assign_room($data[booking_id])' class='btn text-white btn-sm fw-bold custom-bg shadow-none' data-bs-toggle='modal' data-bs-target='#assign-room'>
-              <i class='bi bi-check2-square'></i> Assign Room
+              <i class='bi bi-check2-square'></i> Назначить
             </button>
             <br>
             <button type='button' onclick='cancel_booking($data[booking_id])' class='mt-2 btn btn-outline-danger btn-sm fw-bold shadow-none'>
-              <i class='bi bi-trash'></i> Cancel Booking
+              <i class='bi bi-trash'></i> Отменить бронь
             </button>
           </td>
         </tr>

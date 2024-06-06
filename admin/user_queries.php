@@ -11,20 +11,20 @@
       $q = "UPDATE `user_queries` SET `seen`=?";
       $values = [1];
       if(update($q,$values,'i')){
-        alert('success','Marked all as read!');
+        alert('success','Отмечено как прочитанное!');
       }
       else{
-        alert('error','Operation Failed!');
+        alert('error','Операция не удалась!');
       }
     }
     else{
       $q = "UPDATE `user_queries` SET `seen`=? WHERE `sr_no`=?";
       $values = [1,$frm_data['seen']];
       if(update($q,$values,'ii')){
-        alert('success','Marked as read!');
+        alert('success','Отмечено как прочитанное!');
       }
       else{
-        alert('error','Operation Failed!');
+        alert('error','Операция не удалась!');
       }
     }
   }
@@ -36,31 +36,30 @@
     if($frm_data['del']=='all'){
       $q = "DELETE FROM `user_queries`";
       if(mysqli_query($con,$q)){
-        alert('success','All data deleted!');
+        alert('success','Все данные удалены!');
       }
       else{
-        alert('error','Operation failed!');
+        alert('error','Операция не удалась!');
       }
     }
     else{
       $q = "DELETE FROM `user_queries` WHERE `sr_no`=?";
       $values = [$frm_data['del']];
       if(delete($q,$values,'i')){
-        alert('success','Data deleted!');
+        alert('success','Данные удалены!');
       }
       else{
-        alert('error','Operation failed!');
+        alert('error','Операция не удалась!');
       }
     }
   }
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Admin Panel - User Queries</title>
+  <title>Админ Панель - Запросы Пользователей</title>
   <?php require('inc/links.php'); ?>
 </head>
 <body class="bg-light">
@@ -70,17 +69,17 @@
   <div class="container-fluid" id="main-content">
     <div class="row">
       <div class="col-lg-10 ms-auto p-4 overflow-hidden">
-        <h3 class="mb-4">USER QUERIES</h3>
+        <h3 class="mb-4">ЗАПРОСЫ ПОЛЬЗОВАТЕЛЕЙ</h3>
 
         <div class="card border-0 shadow-sm mb-4">
           <div class="card-body">
 
             <div class="text-end mb-4">
               <a href="?seen=all" class="btn btn-dark rounded-pill shadow-none btn-sm">
-                <i class="bi bi-check-all"></i> Mark all read
+                <i class="bi bi-check-all"></i> Отметить все как прочитанное
               </a>
               <a href="?del=all" class="btn btn-danger rounded-pill shadow-none btn-sm">
-                <i class="bi bi-trash"></i> Delete all
+                <i class="bi bi-trash"></i> Удалить все
               </a>
             </div>
 
@@ -89,12 +88,12 @@
                 <thead class="sticky-top">
                   <tr class="bg-dark text-light">
                     <th scope="col">#</th>
-                    <th scope="col">Name</th>
+                    <th scope="col">Имя</th>
                     <th scope="col">Email</th>
-                    <th scope="col" width="20%">Subject</th>
-                    <th scope="col" width="30%">Message</th>
-                    <th scope="col">Date</th>
-                    <th scope="col">Action</th>
+                    <th scope="col" width="20%">Тема</th>
+                    <th scope="col" width="30%">Сообщение</th>
+                    <th scope="col">Дата</th>
+                    <th scope="col">Действие</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -108,9 +107,9 @@
                       $date = date('d-m-Y',strtotime($row['datentime']));
                       $seen='';
                       if($row['seen']!=1){
-                        $seen = "<a href='?seen=$row[sr_no]' class='btn btn-sm rounded-pill btn-primary'>Mark as read</a> <br>";
+                        $seen = "<a href='?seen=$row[sr_no]' class='btn btn-sm rounded-pill btn-primary'>Отметить как прочитанное</a> <br>";
                       }
-                      $seen.="<a href='?del=$row[sr_no]' class='btn btn-sm rounded-pill btn-danger mt-2'>Delete</a>";
+                      $seen.="<a href='?del=$row[sr_no]' class='btn btn-sm rounded-pill btn-danger mt-2'>Удалить</a>";
 
                       echo<<<query
                         <tr>

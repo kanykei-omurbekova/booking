@@ -7,42 +7,41 @@
       </p>
     </div>
     <div class="col-lg-4 p-4">
-      <h5 class="mb-3">Links</h5>
-      <a href="index.php" class="d-inline-block mb-2 text-dark text-decoration-none">Home</a> <br>
-      <a href="rooms.php" class="d-inline-block mb-2 text-dark text-decoration-none">Rooms</a> <br>
-      <a href="facilities.php" class="d-inline-block mb-2 text-dark text-decoration-none">Facilities</a> <br>
-      <a href="contact.php" class="d-inline-block mb-2 text-dark text-decoration-none">Contact us</a> <br>
-      <a href="about.php" class="d-inline-block mb-2 text-dark text-decoration-none">About</a>
+      <h5 class="mb-3">Ссылки</h5>
+      <a href="index.php" class="d-inline-block mb-2 text-dark text-decoration-none">Главная</a> <br>
+      <a href="rooms.php" class="d-inline-block mb-2 text-dark text-decoration-none">Номера</a> <br>
+      <a href="facilities.php" class="d-inline-block mb-2 text-dark text-decoration-none">Удобства</a> <br>
+      <a href="contact.php" class="d-inline-block mb-2 text-dark text-decoration-none">Контакты</a> <br>
+      <a href="about.php" class="d-inline-block mb-2 text-dark text-decoration-none">О нас</a>
     </div>
     <div class="col-lg-4 p-4">
-        <h5 class="mb-3">Follow us</h5>
-        <?php 
-          if($contact_r['tw']!=''){
-            echo<<<data
-              <a href="$contact_r[tw]" class="d-inline-block text-dark text-decoration-none mb-2">
-                <i class="bi bi-twitter me-1"></i> Twitter
-              </a><br>
-            data;
-          }
-        ?>
-        <a href="<?php echo $contact_r['fb'] ?>" class="d-inline-block text-dark text-decoration-none mb-2">
-          <i class="bi bi-facebook me-1"></i> Facebook
-        </a><br>
-        <a href="<?php echo $contact_r['insta'] ?>" class="d-inline-block text-dark text-decoration-none">
-          <i class="bi bi-instagram me-1"></i> Instagram
-        </a><br>
+      <h5 class="mb-3">Следите за нами</h5>
+      <?php 
+        if($contact_r['tw']!=''){
+          echo<<<data
+            <a href="$contact_r[tw]" class="d-inline-block text-dark text-decoration-none mb-2">
+              <i class="bi bi-twitter me-1"></i> Twitter
+            </a><br>
+          data;
+        }
+      ?>
+      <a href="<?php echo $contact_r['fb'] ?>" class="d-inline-block text-dark text-decoration-none mb-2">
+        <i class="bi bi-facebook me-1"></i> Facebook
+      </a><br>
+      <a href="<?php echo $contact_r['insta'] ?>" class="d-inline-block text-dark text-decoration-none">
+        <i class="bi bi-instagram me-1"></i> Instagram
+      </a><br>
     </div>
   </div>
 </div>
 
-<h6 class="text-center bg-dark text-white p-3 m-0">Designed and Developed by TJ WEBDEV</h6>
+<h6 class="text-center bg-dark text-white p-3 m-0">Разработано и создано Adema</h6>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 
 <script>
 
-  function alert(type,msg,position='body')
-  {
+  function alert(type, msg, position='body') {
     let bs_class = (type == 'success') ? 'alert-success' : 'alert-danger';
     let element = document.createElement('div');
     element.innerHTML = `
@@ -52,86 +51,75 @@
       </div>
     `;
 
-    if(position=='body'){
+    if (position == 'body') {
       document.body.append(element);
       element.classList.add('custom-alert');
-    }
-    else{
+    } else {
       document.getElementById(position).appendChild(element);
     }
     setTimeout(remAlert, 3000);
   }
 
-  function remAlert(){
+  function remAlert() {
     document.getElementsByClassName('alert')[0].remove();
   }
 
-  function setActive()
-  {
+  function setActive() {
     let navbar = document.getElementById('nav-bar');
     let a_tags = navbar.getElementsByTagName('a');
 
-    for(i=0; i<a_tags.length; i++)
-    {
+    for (let i = 0; i < a_tags.length; i++) {
       let file = a_tags[i].href.split('/').pop();
       let file_name = file.split('.')[0];
 
-      if(document.location.href.indexOf(file_name) >= 0){
+      if (document.location.href.indexOf(file_name) >= 0) {
         a_tags[i].classList.add('active');
       }
-
     }
   }
 
   let register_form = document.getElementById('register-form');
 
-  register_form.addEventListener('submit', (e)=>{
+  register_form.addEventListener('submit', (e) => {
     e.preventDefault();
 
     let data = new FormData();
 
-    data.append('name',register_form.elements['name'].value);
-    data.append('email',register_form.elements['email'].value);
-    data.append('phonenum',register_form.elements['phonenum'].value);
-    data.append('address',register_form.elements['address'].value);
-    data.append('pincode',register_form.elements['pincode'].value);
-    data.append('dob',register_form.elements['dob'].value);
-    data.append('pass',register_form.elements['pass'].value);
-    data.append('cpass',register_form.elements['cpass'].value);
-    data.append('profile',register_form.elements['profile'].files[0]);
-    data.append('register','');
+    data.append('name', register_form.elements['name'].value);
+    data.append('email', register_form.elements['email'].value);
+    data.append('phonenum', register_form.elements['phonenum'].value);
+    data.append('address', register_form.elements['address'].value);
+    data.append('pincode', register_form.elements['pincode'].value);
+    data.append('dob', register_form.elements['dob'].value);
+    data.append('pass', register_form.elements['pass'].value);
+    data.append('cpass', register_form.elements['cpass'].value);
+    data.append('profile', register_form.elements['profile'].files[0]);
+    data.append('register', '');
 
     var myModal = document.getElementById('registerModal');
     var modal = bootstrap.Modal.getInstance(myModal);
     modal.hide();
 
     let xhr = new XMLHttpRequest();
-    xhr.open("POST","ajax/login_register.php",true);
+    xhr.open("POST", "ajax/login_register.php", true);
 
-    xhr.onload = function(){
-      if(this.responseText == 'pass_mismatch'){
-        alert('error',"Password Mismatch!");
-      }
-      else if(this.responseText == 'email_already'){
-        alert('error',"Email is already registered!");
-      }
-      else if(this.responseText == 'phone_already'){
-        alert('error',"Phone number is already registered!");
-      }
-      else if(this.responseText == 'inv_img'){
-        alert('error',"Only JPG, WEBP & PNG images are allowed!");
-      }
-      else if(this.responseText == 'upd_failed'){
-        alert('error',"Image upload failed!");
-      }
-      else if(this.responseText == 'mail_failed'){
-        alert('error',"Cannot send confirmation email! Server down!");
-      }
-      else if(this.responseText == 'ins_failed'){
-        alert('error',"Registration failed! Server down!");
-      }
-      else{
-        alert('success',"Registration successful!");
+    xhr.onload = function() {
+      if (this.responseText == 'pass_mismatch') {
+        alert('error', "Пароли не совпадают!");
+      } else if (this.responseText == 'email_already') {
+        alert('error', "Этот email уже зарегистрирован!");
+      } else if (this.responseText == 'phone_already') {
+        alert('error', "Этот номер телефона уже зарегистрирован!");
+      } else if (this.responseText == 'inv_img') {
+        alert('error', "Допускаются только изображения JPG, WEBP и PNG!");
+      } else if (this.responseText == 'upd_failed') {
+        alert('error', "Не удалось загрузить изображение!");
+      } else if (this.responseText == 'mail_failed') {
+        alert('error', "Не удалось отправить письмо с подтверждением! Сервер не доступен!");
+      } else if (this.responseText == 'ins_failed') {
+        alert('error', "Регистрация не удалась! Сервер не доступен!");
+      } else {
+        alert('success', "Регистрация прошла успешно!");
         register_form.reset();
       }
     }
@@ -141,41 +129,36 @@
 
   let login_form = document.getElementById('login-form');
 
-  login_form.addEventListener('submit', (e)=>{
+  login_form.addEventListener('submit', (e) => {
     e.preventDefault();
 
     let data = new FormData();
 
-    data.append('email_mob',login_form.elements['email_mob'].value);
-    data.append('pass',login_form.elements['pass'].value);
-    data.append('login','');
+    data.append('email_mob', login_form.elements['email_mob'].value);
+    data.append('pass', login_form.elements['pass'].value);
+    data.append('login', '');
 
     var myModal = document.getElementById('loginModal');
     var modal = bootstrap.Modal.getInstance(myModal);
     modal.hide();
 
     let xhr = new XMLHttpRequest();
-    xhr.open("POST","ajax/login_register.php",true);
+    xhr.open("POST", "ajax/login_register.php", true);
 
-    xhr.onload = function(){
-      if(this.responseText == 'inv_email_mob'){
-        alert('error',"Invalid Email or Mobile Number!");
-      }
-      else if(this.responseText == 'not_verified'){
-        alert('error',"Email is not verified!");
-      }
-      else if(this.responseText == 'inactive'){
-        alert('error',"Account Suspended! Please contact Admin.");
-      }
-      else if(this.responseText == 'invalid_pass'){
-        alert('error',"Incorrect Password!");
-      }
-      else{
+    xhr.onload = function() {
+      if (this.responseText == 'inv_email_mob') {
+        alert('error', "Неверный email или номер мобильного телефона!");
+      } else if (this.responseText == 'not_verified') {
+        alert('error', "Email не подтвержден!");
+      } else if (this.responseText == 'inactive') {
+        alert('error', "Аккаунт заблокирован! Пожалуйста, свяжитесь с администратором.");
+      } else if (this.responseText == 'invalid_pass') {
+        alert('error', "Неверный пароль!");
+      } else {
         let fileurl = window.location.href.split('/').pop().split('?').shift();
-        if(fileurl == 'room_details.php'){
+        if (fileurl == 'room_details.php') {
           window.location = window.location.href;
-        }
-        else{
+        } else {
           window.location = window.location.pathname;
         }
       }
@@ -186,39 +169,34 @@
 
   let forgot_form = document.getElementById('forgot-form');
 
-  forgot_form.addEventListener('submit', (e)=>{
+  forgot_form.addEventListener('submit', (e) => {
     e.preventDefault();
 
     let data = new FormData();
 
-    data.append('email',forgot_form.elements['email'].value);
-    data.append('forgot_pass','');
+    data.append('email', forgot_form.elements['email'].value);
+    data.append('forgot_pass', '');
 
     var myModal = document.getElementById('forgotModal');
     var modal = bootstrap.Modal.getInstance(myModal);
     modal.hide();
 
     let xhr = new XMLHttpRequest();
-    xhr.open("POST","ajax/login_register.php",true);
+    xhr.open("POST", "ajax/login_register.php", true);
 
-    xhr.onload = function(){
-      if(this.responseText == 'inv_email'){
-        alert('error',"Invalid Email !");
-      }
-      else if(this.responseText == 'not_verified'){
-        alert('error',"Email is not verified! Please contact Admin");
-      }
-      else if(this.responseText == 'inactive'){
-        alert('error',"Account Suspended! Please contact Admin.");
-      }
-      else if(this.responseText == 'mail_failed'){
-        alert('error',"Cannot send email. Server Down!");
-      }
-      else if(this.responseText == 'upd_failed'){
-        alert('error',"Account recovery failed. Server Down!");
-      }
-      else{
-        alert('success',"Reset link sent to email!");
+    xhr.onload = function() {
+      if (this.responseText == 'inv_email') {
+        alert('error', "Неверный email!");
+      } else if (this.responseText == 'not_verified') {
+        alert('error', "Email не подтвержден! Пожалуйста, свяжитесь с администратором.");
+      } else if (this.responseText == 'inactive') {
+        alert('error', "Аккаунт заблокирован! Пожалуйста, свяжитесь с администратором.");
+      } else if (this.responseText == 'mail_failed') {
+        alert('error', "Не удалось отправить email. Сервер не доступен!");
+      } else if (this.responseText == 'upd_failed') {
+        alert('error', "Не удалось восстановить аккаунт. Сервер не доступен!");
+      } else {
+        alert('success', "Ссылка для сброса пароля отправлена на email!");
         forgot_form.reset();
       }
     }
@@ -226,12 +204,11 @@
     xhr.send(data);
   });
 
-  function checkLoginToBook(status,room_id){
-    if(status){
-      window.location.href='confirm_booking.php?id='+room_id;
-    }
-    else{
-      alert('error','Please login to book room!');
+  function checkLoginToBook(status, room_id) {
+    if (status) {
+      window.location.href = 'confirm_booking.php?id=' + room_id;
+    } else {
+      alert('error', 'Пожалуйста, войдите, чтобы забронировать номер!');
     }
   }
 
